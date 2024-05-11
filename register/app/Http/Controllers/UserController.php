@@ -16,6 +16,13 @@ class UserController extends Controller
         $this->user = $user;
     }
 
+    public function show($id)
+    {
+        $user = $this->user->find($id);
+
+        return $this->respond($user);
+    }
+
     public function index(Request $request)
     {
         $search = $request->all();

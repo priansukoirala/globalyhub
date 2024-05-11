@@ -21,6 +21,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware(['auth:api'])->group(function () {
     Route::prefix('v1')->group(function () {
         Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+            Route::get('/{id}', [UserController::class, 'show']);
             Route::get('', [UserController::class, 'index']);
             Route::post('', [UserController::class, 'store']);
         });
