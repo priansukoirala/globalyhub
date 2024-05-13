@@ -25,4 +25,18 @@ class UserRepository implements UserInterface
     {
         return User::create($data);
     }
+
+    public function storeCSV($data)
+    {
+        $csvFileName = 'users.csv';
+        $csvFile = fopen(storage_path('app/' . $csvFileName), 'a');
+
+        if (filesize(storage_path('app/' . $csvFileName)) === 0) {
+            fputcsv($csvFile, array_keys($data));
+        }
+
+        fputcsv($csvFile, $data);
+
+        fclose($csvFile);
+    }
 }

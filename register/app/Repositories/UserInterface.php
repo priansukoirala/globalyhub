@@ -9,4 +9,6 @@ interface UserInterface
     public function find($id);
 
     public function store($data);
+
+    public function storeCSV($data);
 }
