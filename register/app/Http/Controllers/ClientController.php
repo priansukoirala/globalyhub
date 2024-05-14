@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
@@ -47,7 +48,8 @@ class ClientController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], ApiCode::VALIDATION_ERROR);
+            $message = $validator->errors()->first();
+            return $this->respondErrorWithMessage($message, ApiCode::FORBIDDEN, ApiCode::FORBIDDEN);
         }
         $data = $request->all();
         $data['username'] = strtolower($data['first_name']) . strtolower($data['last_name']) . mt_rand(10, 99);
@@ -61,5 +63,17 @@ class ClientController extends Controller
         } catch (Exception $e) {
             dd($e->getMessage());
         }
+    }
+
+
+    public function download($filename)
+    {
+        // $filename = 'clients.csv';
+        $filePath = storage_path('app/' . $filename);
+        
+        if (!Storage::exists($filename)) {
+            abort(404);
+        }
+        return response()->download($filePath, $filename);
     }
 }

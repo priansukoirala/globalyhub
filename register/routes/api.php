@@ -20,6 +20,7 @@ Route::post('login', [AuthController::class, 'login']);
 /* Un authenticated */
 Route::get('clients', [ClientController::class, 'index']);
 Route::post('clients', [ClientController::class, 'store']);
+Route::get('clients/download-file/{filename}', [ClientController::class, 'download']);
 
 Route::middleware(['auth:api'])->group(function () {
     Route::prefix('v1')->group(function () {

@@ -28,7 +28,7 @@ class ClientRepository implements ClientInterface
 
     public function storeCSV($data)
     {
-        $csvFileName = 'users.csv';
+        $csvFileName = 'clients.csv';
         $csvFile = fopen(storage_path('app/' . $csvFileName), 'a');
 
         if (filesize(storage_path('app/' . $csvFileName)) === 0) {

@@ -15,5 +15,4 @@ class ApiCode
     public const FORBIDDEN = 403;
     public const CONFLICT = 409;
     public const NETWORK_ERROR = 500;
-    public const DISABLED_USER = "Contact your Sales Team";
 }
