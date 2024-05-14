@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\User;
 
-class UserRepository implements UserInterface
+class ClientRepository implements ClientInterface
 {
 
     public function getAll($limit = null, $filter = [], $sortBy = ['by' => 'id', 'sort' => 'DESC'])
@@ -38,5 +38,7 @@ class UserRepository implements UserInterface
         fputcsv($csvFile, $data);
 
         fclose($csvFile);
+
+        $this->store($data);
     }
 }

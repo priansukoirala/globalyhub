@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Repositories\UserInterface;
-use App\Repositories\UserRepository;
+use App\Repositories\ClientInterface;
+use App\Repositories\ClientRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RegisterServiceProvider extends ServiceProvider
@@ -22,8 +22,8 @@ class RegisterServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->bind(
-            UserInterface::class,
-            UserRepository::class
+            ClientInterface::class,
+            ClientRepository::class
         );
     }
 }

@@ -3,32 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\ApiCode;
-use App\Repositories\UserInterface;
+use App\Repositories\ClientInterface;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class ClientController extends Controller
 {
 
-    protected $user;
-    public function __construct(UserInterface $user)
+    protected $client;
+    public function __construct(ClientInterface $client)
     {
-        $this->user = $user;
+        $this->client = $client;
     }
 
     public function show($id)
     {
-        $user = $this->user->find($id);
+        $client = $this->client->find($id);
 
-        return $this->respond($user);
+        return $this->respond($client);
     }
 
     public function index(Request $request)
     {
         $search = $request->all();
-        return $this->respond($this->user->getAll($limit = 50, $search));
+        return $this->respond($this->client->getAll($limit = 50, $search));
     }
 
     public function store(Request $request)
@@ -50,10 +50,11 @@ class UserController extends Controller
             return response()->json(['errors' => $validator->errors()], ApiCode::VALIDATION_ERROR);
         }
         $data = $request->all();
+        $data['username'] = strtolower($data['first_name']) . strtolower($data['last_name']) . mt_rand(10, 99);
         try {
             return DB::transaction(function () use ($data) {
 
-                $storedData = $this->respond($this->user->storeCSV($data));
+                $storedData = $this->respond($this->client->storeCSV($data));
 
                 return $storedData;
             });

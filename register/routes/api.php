@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,15 +17,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', [AuthController::class, 'login']);
-Route::get('users', [UserController::class, 'index']);
-Route::post('users', [UserController::class, 'store']);
+/* Un authenticated */
+Route::get('clients', [ClientController::class, 'index']);
+Route::post('clients', [ClientController::class, 'store']);
 
 Route::middleware(['auth:api'])->group(function () {
     Route::prefix('v1')->group(function () {
-        Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
-            Route::get('/{id}', [UserController::class, 'show']);
-            Route::get('', [UserController::class, 'index']);
-            Route::post('', [UserController::class, 'store']);
+        Route::group(['prefix' => 'clients', 'as' => 'clients.'], function () {
+            Route::get('/{id}', [ClientController::class, 'show']);
+            Route::get('', [ClientController::class, 'index']);
+            Route::post('', [ClientController::class, 'store']);
         });
     });
 });
