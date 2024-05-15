@@ -12,4 +12,5 @@ interface ClientInterface
 
     public function storeCSV($data);
 
+    public function getAllFromCSV();
 }

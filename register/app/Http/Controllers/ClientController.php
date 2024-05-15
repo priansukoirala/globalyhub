@@ -26,10 +26,9 @@ class ClientController extends Controller
         return $this->respond($client);
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $search = $request->all();
-        return $this->respond($this->client->getAll($limit = 50, $search));
+        return $this->respond($this->client->getAllFromCSV());
     }
 
 
