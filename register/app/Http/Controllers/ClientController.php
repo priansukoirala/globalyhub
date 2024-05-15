@@ -52,7 +52,9 @@ class ClientController extends Controller
             return $this->respondErrorWithMessage($message, ApiCode::FORBIDDEN, ApiCode::FORBIDDEN);
         }
         $data = $request->all();
-        $data['username'] = strtolower($data['first_name']) . strtolower($data['last_name']) . mt_rand(10, 99);
+        $username = $data['username'] = strtolower($data['first_name']) . strtolower($data['last_name']) . mt_rand(10, 99);
+        $data['password'] = $username;
+        $data['preferred_contact'] = $data['preferred_contact'] == 'Email' ? 'email' : 'contact_number';
         try {
             return DB::transaction(function () use ($data) {
 
@@ -70,7 +72,7 @@ class ClientController extends Controller
     {
         // $filename = 'clients.csv';
         $filePath = storage_path('app/' . $filename);
-        
+
         if (!Storage::exists($filename)) {
             abort(404);
         }

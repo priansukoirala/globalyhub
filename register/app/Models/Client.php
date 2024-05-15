@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 
 class Client extends Authenticatable
@@ -17,6 +18,7 @@ class Client extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = 'clients';
     protected $fillable = [
         'first_name',
         'middle_name',
@@ -28,6 +30,7 @@ class Client extends Authenticatable
         'dob',
         'education',
         'contact_number',
+        'preferred_contact',
         'email',
         'password',
     ];
@@ -41,7 +44,10 @@ class Client extends Authenticatable
         'password',
         'remember_token',
     ];
-
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
     /**
      * The attributes that should be cast.
      *
