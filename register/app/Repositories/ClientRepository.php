@@ -3,6 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Client;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
+use SplFileObject;
 
 class ClientRepository implements ClientInterface
 {
@@ -16,9 +19,10 @@ class ClientRepository implements ClientInterface
         return $clients;
     }
 
-    public function find($id)
+
+    public function find($username)
     {
-        return Client::findOrFail($id);
+        return Client::where('username', $username)->first();
     }
 
     public function store($data)

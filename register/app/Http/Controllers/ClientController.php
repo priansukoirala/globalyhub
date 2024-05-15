@@ -19,9 +19,9 @@ class ClientController extends Controller
         $this->client = $client;
     }
 
-    public function show($id)
+    public function show($username)
     {
-        $client = $this->client->find($id);
+        $client = $this->client->find($username);
 
         return $this->respond($client);
     }
@@ -31,6 +31,7 @@ class ClientController extends Controller
         $search = $request->all();
         return $this->respond($this->client->getAll($limit = 50, $search));
     }
+
 
     public function store(Request $request)
     {
@@ -57,7 +58,6 @@ class ClientController extends Controller
         $data['preferred_contact'] = $data['preferred_contact'] == 'Email' ? 'email' : 'contact_number';
         try {
             return DB::transaction(function () use ($data) {
-
                 $storedData = $this->respond($this->client->storeCSV($data));
 
                 return $storedData;
