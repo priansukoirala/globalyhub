@@ -1,66 +1,75 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Client Registration API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is a simple Laravel API for registering Users.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+-   Register a new client
+-   Retrieve a list of clients
+-   Retrieve a single client by username
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Technologies Used
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   Laravel: A PHP web application framework for building APIs and web applications.
+-   MySQL: A relational database management system used for storing user data.
+-   Postman: A collaboration platform for API development, testing, and documentation.
 
-## Learning Laravel
+## Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Clone the repository:
+   git clone https://github.com/priansukoirala/globalyhub.git
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+2. Navigate to the project directory:
+   cd register
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. Install dependencies:
+   composer install
 
-## Laravel Sponsors
+4. Copy the .env.example file to .env and configure your database connection:
+   cp .env.example .env
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+5. Generate an application key:
+   php artisan key:generate
 
-### Premium Partners
+6. Install Passort
+   php artisan passport:install
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+7. Migrate the database:
+   php artisan migrate
 
-## Contributing
+8. Usage
+   Start the development server:
+   php artisan serve
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Below list are the packages used in this application
 
-## Code of Conduct
+1. php: This specifies the PHP version required by the Laravel application. In this case, it requires PHP version 8.1 or higher.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2. guzzlehttp/guzzle: Guzzle is a PHP HTTP client library that makes it easy to send HTTP requests and integrate with web services. It is commonly used in Laravel applications for making HTTP requests to external APIs or services.
 
-## Security Vulnerabilities
+3. laravel/framework: Laravel is the core framework for building web applications in PHP. It provides a rich set of features and tools for handling routing, authentication, database interactions, and more.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. laravel/passport: Laravel Passport is an official package for adding OAuth2 authentication to Laravel applications. It provides a full OAuth2 server implementation with support for token issuance, token revocation, and token scopes, making it easy to secure API endpoints and authenticate users using OAuth2.
 
-## License
+5. marcin-orlowski/laravel-api-response-builder: Laravel API Response Builder is a package that helps standardize and streamline API responses in Laravel applications. It provides helper methods and classes for constructing consistent and well-structured API responses with proper status codes, headers, and JSON payloads.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+###Repository Pattern
+
+The Repository pattern is a design pattern commonly used to separate the logic that retrieves data from the underlying data source (such as a database) from the rest of the application. The following steps were taken to implement the same
+
+a. Create a Repository Interface:
+First, define an interface that outlines the methods for interacting with your data source. This interface will serve as a contract that concrete repository implementations must adhere to. In this case
+EG - ClientInterface is an interface that defines all the methods used.
+
+b. Implement the Repository:
+Next, create concrete repository classes that implement the repository interface. These classes will contain the actual logic for
+interacting with the data source, such as querying the database using Eloquent ORM or executing raw SQL queries.
+EG - ClientRepository is an class that implements all the methods defined in ClientInterface.
+
+c. Binding in the Service Provider:
+Register your repository binding in the Laravel service container. You can do this in the register() method of a service provider, such as AppServiceProvider. However, There is a new service provider RegisterServiceProvider that is already
+regsitered in the kernel.php file where the repositories are binded.
+
+d. Using the Repository:
+Now, you can use dependency injection to access your repository in your controllers, services, or other parts of your application.
+sets up constructor injection for a dependency ($client) in the class. It ensures that an object implementing the ClientInterface interface is provided to the class upon instantiation, allowing the class to interact with the injected dependency without needing to create it internally. This promotes loose coupling and makes the class easier to test and maintain.
