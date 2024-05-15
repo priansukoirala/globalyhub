@@ -21,7 +21,7 @@ class UserTableSeeder extends Seeder
                 "username" => "super-admin",
                 "gender" => "female",
                 "address" => "KTM",
-                "nationality" => "muslim",
+                "nationality" => "Muslim",
                 "dob" => "1997-07-07",
                 "education" => "BCIS",
                 "contact_number" => "9843232440",

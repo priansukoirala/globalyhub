@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('username');
             $table->enum('gender', ['male', 'female', 'other']);
             $table->text('address');
-            $table->enum('nationality', ['hindu', 'muslim', 'christian']);
+            $table->enum('nationality', ['Hindu', 'Muslim', 'Christian', 'Budhhist']);
             $table->date('dob');
             $table->string('education')->nullable();
             $table->string('contact_number');
