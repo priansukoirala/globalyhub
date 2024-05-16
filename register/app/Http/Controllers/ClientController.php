@@ -44,7 +44,7 @@ class ClientController extends Controller
             'dob' => 'required|date',
             'education' => 'required|string|max:255',
             'contact_number' => 'required|string|max:20',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|unique:clients|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -62,7 +62,8 @@ class ClientController extends Controller
                 return $storedData;
             });
         } catch (Exception $e) {
-            dd($e->getMessage());
+            return $this->respondErrorWithMessage($e->getMessage(), ApiCode::FORBIDDEN, ApiCode::FORBIDDEN);
+            // dd($e->getMessage());
         }
     }
 
@@ -70,11 +71,15 @@ class ClientController extends Controller
     public function download($filename)
     {
         // $filename = 'clients.csv';
-        $filePath = storage_path('app/' . $filename);
+        try {
+            $filePath = storage_path('app/' . $filename);
 
-        if (!Storage::exists($filename)) {
-            abort(404);
+            if (!Storage::exists($filename)) {
+                abort(404);
+            }
+            return response()->download($filePath, $filename);
+        } catch (Exception $e) {
+            dd($e->getMessage());
         }
-        return response()->download($filePath, $filename);
     }
 }
